@@ -21,9 +21,14 @@ def broadcast(data):
 #Listens for data
 def listener(s):
     while 1:
-        data = s.recv(1024*1024)
-        print(data)
-        broadcast(data)
+        try:
+            data = s.recv(1024*1024)
+            print(data)
+            broadcast(data)
+        except:
+            print(traceback.format_exc())
+            print("Error. Assuming client dropped")
+            client_socks.remove(s)
 
 #Listens for connections
 def listen_for_connections():
