@@ -23,9 +23,6 @@ def send(message):
 	client.sendall('[' + name + '] ' + message)
 
 def startClient():
-    name = raw_input("Please enter your name \n")
-    host = raw_input("Please enter the server host\n") #192.168.1.21
-    port = int(raw_input("Please enter the server port\n")) #7000
     printConsole('Connecting to server...')
     try:
         client.connect((host, port))
@@ -42,12 +39,10 @@ def startClient():
         printConsole(traceback.format_exc())
         sys.exit()
 
-name = None
+name = raw_input("Please enter your name \n")
+host = raw_input("Please enter the server host\n")
+port = int(raw_input("Please enter the server port\n"))
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-socketThread = threading.Thread(target=startClient)
-socketThread.daemon = True
-socketThread.start()
 
 root = Tkinter.Tk()
 root.title("Socket Client - GUI")
@@ -60,5 +55,9 @@ inputBox.pack()
 
 sendButton = Tkinter.Button(root, text="Send", command=sendMessage)
 sendButton.pack()
+
+socketThread = threading.Thread(target=startClient)
+socketThread.daemon = True
+socketThread.start()
 
 root.mainloop()
