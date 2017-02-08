@@ -16,7 +16,7 @@ def sendMessage():
 
 def printConsole(printMessage):
     console.config(state=Tkinter.NORMAL)
-    console.insert(Tkinter.END, str(printMessage) + '\n')
+    console.insert(Tkinter.END, printMessage + '\n')
     console.config(state=Tkinter.DISABLED)
     print(printMessage)
     
@@ -34,7 +34,7 @@ def startClient():
             if not received:
                 printConsole('Server closed.')
                 break
-            printConsole(received)
+            printConsole(str(received).replace("b","",1).replace("'", "", 1).replace("'", "", -1))
     except:
         printConsole('Failed to connect to server')
         printConsole(traceback.format_exc())
