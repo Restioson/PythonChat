@@ -1,4 +1,5 @@
-import Tkinter
+try: import Tkinter
+except: import tkinter as Tkinter
 import socket
 import sys
 import threading
@@ -15,12 +16,12 @@ def sendMessage():
 
 def printConsole(printMessage):
     console.config(state=Tkinter.NORMAL)
-    console.insert(Tkinter.END, printMessage + '\n')
+    console.insert(Tkinter.END, str(printMessage) + '\n')
     console.config(state=Tkinter.DISABLED)
     print(printMessage)
     
 def send(message):
-	client.sendall('[' + name + '] ' + message)
+    client.sendall(b'[' + name.encode("utf-8") + b'] ' + message.encode("utf-8"))
 
 def startClient():
     printConsole('Connecting to server...')
@@ -39,9 +40,9 @@ def startClient():
         printConsole(traceback.format_exc())
         sys.exit()
 
-name = raw_input("Please enter your name \n")
-host = raw_input("Please enter the server host\n")
-port = int(raw_input("Please enter the server port\n"))
+name = input("Please enter your name \n")
+host = input("Please enter the server host\n")
+port = int(input("Please enter the server port\n"))
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 root = Tkinter.Tk()
