@@ -42,7 +42,7 @@ def startClient():
         printConsole(traceback.format_exc())
         sys.exit()
 
-name = 'Client'
+name = None
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 socketThread = threading.Thread(target=startClient)
