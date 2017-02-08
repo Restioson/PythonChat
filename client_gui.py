@@ -56,6 +56,9 @@ inputBox.pack()
 sendButton = Tkinter.Button(root, text="Send", command=sendMessage)
 sendButton.pack()
 
+root.update_idletasks()
+root.update()
+
 socketThread = threading.Thread(target=startClient)
 socketThread.daemon = True
 socketThread.start()
